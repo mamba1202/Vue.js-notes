@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 5px solid black;
+            height: 200px;
+            width: 600px;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <my-component>
+            <template scope='prop'> prop可以自定义--prop拿到的是render函数传递过来的数据
+                <hr>
+                {{prop.text}}
+                {{prop.msg}}
+                向组件中的插槽中传递数据：
+                1.先定义一个template模板
+                2.用scope标签声明prop(prop可自定义)
+                3.用文本插值方式 .想拿的数据如上所示
+            </template>
+        </my-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        Vue.component('my-component', {
+            render: function (creseElement) {
+                //相当于<div><slot :text='text'></slot></div>
+                return creseElement('div', this.$scopedSlots.default({ //对象
+                    text: '我是子组件传递过来的数据',
+                    msg: 'scopetext'
+                }
+                ))
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {}
+        })
+
+    </script>
+</body>
+
+</html>

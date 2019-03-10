@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 5px solid black;
+            height: 200px;
+            width: 600px;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <my-component value='haha'>
+
+        </my-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        //this.text === context.props.text
+        //this.$slots.default === context.children 没有为undefined
+        Vue.component('my-component', {
+            functional: true, //表示当前的vue实例无状态，无实例（无this.data）
+            render: function (createElement, context) { //context代表上下文对象可以拿到组件内的所有
+                return createElement('button', {
+                    on: {
+                        click: function () {
+                            debugger
+                            var a =this //此时的this是window
+                            console.log(context)
+                            console.log(context.parent)
+                            console.log(context.props.value)
+                            console.log(context.parent.msg)
+                            alert(this.value) //undefined
+                        }
+                    }
+                }, '点击我学习context')
+            },
+            props: ['value']
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: 'mamba'
+            }
+        })
+
+    </script>
+</body>
+
+</html>
