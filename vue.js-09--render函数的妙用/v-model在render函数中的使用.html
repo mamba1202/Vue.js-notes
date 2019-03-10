@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 5px solid black;
+            height: 200px;
+            width: 600px;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!--<my-component :name="name" @input="showName">
+        </my-component>-->
+        <my-component :name="name" v-model="name">
+            v-model是一个语法糖 v-on 监听input事件 v-bind绑定一个value属性
+            当input事件触发则input事件就会自动接收传递过来的参数并赋值给name </my-component>
+        {{name}}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        Vue.component('my-component', {
+            render: function (createElement) {
+                //此处this是vue-component实例
+                var self = this  //指的是当前的Vue实例
+                return createElement('input', {
+                    domProps: {
+                        value: self.name
+                    },
+                    on: {
+                        input: function (event) {
+                            debugger
+                            var a = this ///如果使用this就会报错，因为此处的this是window对象，所以用self声明用vue.component-my-component
+                            self.$emit('input', event.target.value) //input框中输入的内容
+                            //触发一个input事件--将参数传递给v-model绑定的属性值
+
+                        }
+                    }
+                })
+            },
+            props: ['name']
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                name: '1234'
+            },
+            // methods: {
+            //   showName: function (value) { //此处value是接收的数据--event.target.value
+            //     this.name = value
+
+            //  }
+            //}
+        })
+
+
+    </script>
+</body>
+
+</html>
