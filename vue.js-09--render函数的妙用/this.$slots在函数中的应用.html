@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 5px solid black;
+            height: 200px;
+            width: 600px;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <my-component>
+            <p>凯尔特人</p>
+            <p>火箭队</p>
+            <H3 slot="header">我是标题</H3>
+            <H5 slot="footer">我是文章最后一段</H5>
+        </my-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        // 第三个参数传的就是VNODE createElement(header,headedr)返回的就是VNODE
+        Vue.component('my-component', {
+            render: function (createElement) {
+                debugger
+                var header = this.$slots.header; //--这返回的就是含有=VONDE的数组
+                var main = this.$slots.default;
+                var footer = this.$slots.footer
+                return createElement('div', [
+                    createElement('header', header),
+                    createElement('main', main),
+                    createElement('footer', footer)
+                ])
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {}
+        })
+
+    </script>
+</body>
+
+</html>
