@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-component></my-component>
+        <hr>
+        <app-component></app-component>
+        table中只能有tr.td.tbody 这些元素
+        <table>
+            <!--<my-component></my-component>-->
+            <tbody is="my-component"></tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        //Vue.component(tag,{
+        //template:'<div></div>
+        //})
+        全局注册组件
+        Vue.component('my-component', {
+            template: '<div>我是一个组件</div>'
+        })
+        局部注册组件
+        var app = new Vue({
+            el: '#app',
+            components: {
+                'app-component': {
+                    template: '<div>我是app局部注册的一个组件</div>'
+                }
+            },
+            data: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

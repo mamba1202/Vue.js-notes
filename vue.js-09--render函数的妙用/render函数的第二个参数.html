@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 5px solid black;
+            height: 200px;
+            width: 600px;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <child></child>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        Vue.component('child', { //组件名
+            //第二个参数可选，第二个参数是数据对象--只能是Object
+            render: function (createElement) {
+                return createElement({
+                    template: '<div>NBA</div>'
+                }, {
+                        class: {
+                            foo: true,
+                            baz: false
+                        },
+                        style: {
+                            color: 'red',
+                            fontSize: '16px'   //变量用驼峰命名-组件-
+                        },
+                        //正常的html特性 除了class以外的属性
+                        attrs: {
+                            id: "foo",
+                            src: 'http://baidu.com'
+                        },
+                        //用来写原生的DOM属性
+                        domProps: {
+                            innerHTML: '<span style="color: blue; font-size: 20px;">科比</span>'
+                        }
+                    })
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {}
+        })
+
+    </script>
+</body>
+
+</html>

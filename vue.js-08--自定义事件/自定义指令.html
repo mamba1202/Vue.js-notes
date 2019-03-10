@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 5px solid black;
+            height: 600px;
+            width: 600px;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        获取焦点： <input type="text" v-focus>
+        <hr>
+        未获取焦点：<input type="text">
+        <hr>
+        <div v-cuihua:goudan.a.b.c="obq"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        Vue.directive('focus', {
+            //指令的选项，插入到父节点的时候就调用
+            inserted: function (el) {
+                el.focus()
+            }
+        }),
+            Vue.directive('cuihua', {
+                //指令的选项，插入到父节点的时候就调用
+                bind: function (el, binding, vnode) {
+                    var keys = []
+                    for (var key in vnode) {
+                        keys.push(key)
+                    }
+                    el.innerHTML =
+                        'name' + '------' + binding.name + '<br>' +
+                        'value' + '------' + binding.value + '<br>' +
+                        'expression' + '------' + binding.expression + '<br>' +
+                        'argument' + '------' + binding.arg + '<br>' +
+                        'modifiers' + '------' + JSON.stringify(binding.modifiers) + '<br>' +
+                        'vnode中的keys' + '------' + keys.join("----") + '<br>'
+                    /*el: 指令所绑定的元素，可以用来直接操作 DOM 。
+                    binding: 一个对象，包含以下属性： 
+                    name: 指令名，不包括 v­ 前缀。 
+                    value: 指令的绑定值， 例如： v­my­directive="1 + 1", value 的值是 2。  
+                    oldValue: 指令绑定的前一个值，仅在 update 和 componentUpdated 钩子中可用。无 论值是否改变都可用。  
+                    expression: 绑定值的字符串形式。 例如 v­my­directive="1 + 1" ， expression 的值是 "1 + 1"。 
+                    arg: 传给指令的参数。例如 v­my­directive:foo， arg 的值是 “foo”。  
+                    modifiers: 一个包含修饰符的对象。 例如： v­my­directive.foo.bar, 修饰符对 象,,,modifiers 的值是 { foo: true, bar: true }。
+                    vnode: Vue 编译生成的虚拟节点。   oldVnode: 上一个虚拟节点，仅在 update 和 componentUpdated 钩子中可用*/
+                }
+            })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                obq: '我是自定义指令所绑定的值'
+            }
+        })
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    在父组件里，向子组件传递消息
+    <div id="app" style="border: 1px solid chartreuse; height: 160px;">
+        <h5 style="text-align: center">我是父组件</h5>
+        <child-component msg="我是来自父组件的内容"></child-component>
+        <child-component msg="[3,6,9]"></child-component>
+        <child-component :msg="[3,6,9]"></child-component>
+        //v-bind 使用与否的区别，还可以使用布尔值，对象进行测试
+        <hr>
+        使用v-bind动态绑定--把input中的msg传递给子组件
+        <input type="text" v-model="parentmsg">
+        <bind-component v-bind:msg="parentmsg"></bind-component>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                parentmsg: '哈哈哈哈哈'
+            },
+            components: {
+                'child-component': {
+                    props: ['msg'],
+                    template: '<div id="app" style="border: 1px solid red; height: 80px;">{{msg}}</div>'
+                },
+                'bind-component': {
+                    props: ['msg'],
+                    template: '<div id="app" style="border: 1px solid red; height: 80px;">{{msg}}</div>'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

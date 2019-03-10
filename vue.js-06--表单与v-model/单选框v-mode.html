@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+            单选框：<br>
+            单个单选框---用v-bind <input type="radio" v-bind:checked="oneradio"><br>
+            单个单选框用v-model <input type="radio" v-model="oneradio">
+            此处用v-model不生效<br>
+            多个单选框：<br>
+            科比：<input type="radio" name="checks" value="科比" v-model="checkname"><br>
+            哈登：<input type="radio" name="checks" value="哈登" v-model="checkname"><br>
+            欧文：<input type="radio" name="checks" value="欧文" v-model="checkname"><br>
+            现在选中的是---{{checkname}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                oneradio: true,
+                checks: [],
+                checkname: ''
+            }
+        })
+    </script>
+</body>
+
+</html>

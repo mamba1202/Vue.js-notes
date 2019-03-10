@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 1px solid black;
+            height: 200px;
+            width: 600px;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <my-component msg="我是父组件传递的数据"></my-component>
+        <hr>
+        <!--通过input中输入的数据直接改变div的宽度-->
+        <!--传递进来的width仅仅是数据-->
+        <input type="text" v-model="width">
+        <width-component :width="width"></width-component>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+
+        //将传递进来的数据作为初始值进行保存
+        //注册组件
+        Vue.component('my-component', {
+            props: ['msg'],
+            template: '<div>{{count}}</div>',
+            data: function () {
+                return {
+                    //props中的值可以通过this.XXXX直接来获取（传递进来的初始值）
+                    count: this.msg //用count保存初始值
+                }
+            },
+
+        }),
+            //width
+            Vue.component('width-component', {
+                props: ['width'],
+                template: '<div :style="style"></div>', //动态绑定style用v-bind
+                data: function () {
+                    return {
+                    }
+                },
+                computed: {
+                    style: function () {
+                        //直接就是style
+                        return {
+                            width: this.width + 'px',
+                            //background-color: 'red'
+                            background: 'yellow',
+                            height: '30px',
+                        }
+                    }
+                }
+            })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                width: 0
+            },
+        })
+
+    </script>
+</body>
+
+</html>

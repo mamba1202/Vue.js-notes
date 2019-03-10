@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>开发环境数据验证</title>
+</head>
+
+<body>
+    <div id="app">
+        数据验证六种类型：String,Boolean,Number,Array,Object,Function
+        <input type="text" v-model="d">
+        <type-component :a="a" :b="b" :c="c" :d="d" f:='f' :g="g"></type-component>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        Vue.component('type-component', {
+            props: {
+                a: Number,
+                b: [String, Number],
+                //必须是布尔类型，默认为true，type-required-default
+                c: {
+                    type: Boolean,
+                    default: true
+                },
+                d: {
+                    //Missing required prop: 'd'
+                    type: Number,
+                    required: true //添加required 就必须将d项传进去
+
+                },
+                e: {
+                    type: Array,
+                    default: function () {
+                        return [666] //不向子组件中传入e则返回默认值666
+                    }
+                },
+                //自定义一个验证函数
+                f: {
+                    validator: function (value) {
+                        return value > 10 //成功返回true，失败则报错 
+                    }
+                },
+                g: {
+                    type: Function
+                }
+            },
+            template: '<div>{{a}}--{{b}}--{{c}}--{{d}}---{{e[0]}}</div>',
+            data: function () {
+                return {
+                    //props中的值可以通过this.XXXX直接来获取（传递进来的初始值）
+                    count: this.msg //用count保存初始值
+                }
+            },
+
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                a: '1',
+                b: 666,
+                c: true, // c: '' 会默认为true， 传不是布尔类型的会渲染出来但会报错
+                d: 12324356,
+                e: '',
+                f: 88,
+                g: console.log() //传不为函数类型报错
+            },
+        })
+    </script>
+</body>
+
+</html>

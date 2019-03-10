@@ -1,0 +1,43 @@
+!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{msg}}<br>
+        {{ 6+6-18}}<br>
+        {{ 6>3 ? msg : a}}
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    //环境搭建
+    <script>
+        var app = new Vue({
+            el: "#app",//Element用于指定页面中已经存在的DOM元素，挂载到DOM上(el可以是元素也可是class/id)
+            data: {
+                msg: "conde社区",
+                a: 2
+            },
+            created: function () {
+                //alert('我是vue实例，创建完成，还未挂载到dom')
+            },
+            mounted: function () {
+                //alert('我是vue实例，已经挂载到dom')
+            },
+        });
+        //访问vue实例的属性
+        console.log(app.$el)
+        console.log(app.$data)
+        //访问data中的属性
+        console.log(app.msg)
+        console.log(app.a)
+    </script>
+</body>
+
+</html>

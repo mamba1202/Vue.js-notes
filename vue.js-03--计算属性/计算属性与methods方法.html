@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">
+        {{text}}<br>
+        {{text.split(',').reverse().join(',')}}
+        逻辑过长就会变得臃肿，难以维护，所以遇到复杂的逻辑时，应当使用计算属性
+        <hr>
+        下边是使用计算属性得到的<br>
+        {{reverseText}}
+        <hr>
+        计算属性的缓存{{now}}
+        <hr>
+        通过methods拿到的时间戳(方法要加括号)
+        {{thisTime()}}
+       
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        //将'123,456,789'变成'789,456,123'
+        var app = new Vue({
+            el: "#demo",
+            data: {
+                text: "123,456,789"
+            },
+            //与data同级-定义计算属性
+            computed: {
+                reverseText: function () {
+                    return this.text.split(',').reverse().join(',')
+                },
+                now: function () {
+                    return Date.now();
+                }
+            },
+            methods: {
+                thisTime: function () {
+                    return Date.now();
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

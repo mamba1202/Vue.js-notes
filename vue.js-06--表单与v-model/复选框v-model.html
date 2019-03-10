@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        复选框
+        单个复选框---用v-bind：<input type="checkbox" v-bind:checked="oneradio">
+        <br>
+        单个复选框用v-model：<input type="checkbox" v-model="oneradio">
+        <br>
+        多个复选框：
+        科比：<input type="checkbox" value="科比" v-model="checks"><br>
+        哈登：<input type="checkbox" value="哈登" v-model="checks"><br>
+        欧文：<input type="checkbox" value="欧文" v-model="checks"><br>
+        选中的是---{{checks}}
+        <br>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                oneradio: true,
+                checks: []
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">
+        两个购物车总计{{prices}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        //计算购物车中的所有物品价格
+        var app = new Vue({
+            el: "#demo",
+            data: {
+                //第一个购物车
+                package1: [
+                    {
+                        name: 'iphone',
+                        price: 6999,
+                        count: 2
+                    },
+                    {
+                        name: 'iPad',
+                        price: 3600,
+                        count: 1
+                    }],
+                //第二个购物车
+                package2: [
+                    {
+                        name: 'iphone8',
+                        price: 6566,
+                        count: 3
+                    },
+                    {
+                        name: 'iPad',
+                        price: 3600,
+                        count: 6
+                    }]
+            },
+            //与data同级-定义计算属性
+            computed: {
+                prices: function () {
+                    var prices = 0;
+                    for (var i = 0; i < this.package1.length; i++) {
+                        prices += this.package1[i].price * this.package1[i].count;
+                    }
+                    for (var j = 0; j < this.package2.length; j++) {
+                        prices += this.package2[j].price * this.package2[j].count;
+                    }
+                    return prices;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
